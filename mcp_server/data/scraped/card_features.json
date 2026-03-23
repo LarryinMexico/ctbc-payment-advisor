@@ -1,0 +1,204 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-03-17",
+  "source": "CTBC IB Portal 卡片特色",
+  "cards": {
+    "ctbc_c_uniopen": {
+      "card_id": "ctbc_c_uniopen",
+      "raw_card_id": "C_uniopen",
+      "page_url": "https://www.ctbcbank.com/web/content/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_uniopen.html",
+      "channels": [
+        {
+          "channel_id": "general",
+          "cashback_rate": 0.01,
+          "cashback_type": "points",
+          "cashback_description": "國內一般消費 1% OPENPOINT",
+          "conditions": "無上限",
+          "valid_end": null,
+          "source": "manual_verified"
+        },
+        {
+          "channel_id": "mobile_payment",
+          "cashback_rate": 0.05,
+          "cashback_type": "points",
+          "cashback_description": "綁定 icash Pay 最高 5%（1% + 加碼 4%）",
+          "conditions": "每一 icash 上限 150 點/月，每月總上限 300 點",
+          "valid_end": null,
+          "source": "manual_verified"
+        },
+        {
+          "channel_id": "convenience_store",
+          "cashback_rate": 0.07,
+          "cashback_type": "points",
+          "cashback_description": "統一集團最高 7%（3% 基本 + 消費 4 家以上加碼 4%）",
+          "conditions": "多品牌加碼每戶上限 500 點/月",
+          "valid_end": null,
+          "source": "manual_verified"
+        },
+        {
+          "channel_id": "overseas_general",
+          "cashback_rate": 0.03,
+          "cashback_type": "points",
+          "cashback_description": "國外消費 3%（一般 2% + 實體商店加碼 1%）",
+          "conditions": "無上限",
+          "valid_end": null,
+          "source": "manual_verified"
+        }
+      ]
+    },
+    "ctbc_c_linepay": {
+      "card_id": "ctbc_c_linepay",
+      "raw_card_id": "C_LINEPay",
+      "page_url": "https://www.ctbcbank.com/web/content/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_LINEPay.html",
+      "channels": [
+        {
+          "channel_id": "overseas_general",
+          "cashback_rate": 0.027999999999999997,
+          "cashback_type": "cash",
+          "cashback_description": "國外實體商店消費最高2.8%回饋(限信用卡)",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        }
+      ]
+    },
+    "ctbc_c_fp": {
+      "card_id": "ctbc_c_fp",
+      "raw_card_id": "C_FP",
+      "page_url": "https://www.ctbcbank.com/web/content/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_FP.html",
+      "channels": [
+        {
+          "channel_id": "general",
+          "cashback_rate": 0.01,
+          "cashback_type": "cash",
+          "cashback_description": "國內外一般消費     1% 無上限",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        },
+        {
+          "channel_id": "overseas_general",
+          "cashback_rate": 0.02,
+          "cashback_type": "cash",
+          "cashback_description": "國外實體商店消費 2% 無上限(含國內外一般消費1%)",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        },
+        {
+          "channel_id": "food_delivery",
+          "cashback_rate": 0.05,
+          "cashback_type": "cash",
+          "cashback_description": "單筆消費滿NT288元最高回饋5%",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct",
+          "channel_name": "foodpanda 平台消費"
+        },
+        {
+          "channel_id": "food_delivery",
+          "cashback_rate": 0.02,
+          "cashback_type": "cash",
+          "cashback_description": "單筆消費未滿NT288元最高回饋2%",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct",
+          "channel_name": "foodpanda 平台消費"
+        },
+        {
+          "channel_id": "food_delivery",
+          "cashback_rate": 0.05,
+          "cashback_type": "cash",
+          "cashback_description": "foodpanda平台單筆消費滿NT288元，胖達幣最高5%，單筆消費未滿NT288元，胖達幣最高2%，含國內外一般消費1%，單   筆刷卡消費入帳後計算胖達幣並回饋，四捨五入至整數。",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        }
+      ]
+    },
+    "ctbc_c_allme": {
+      "card_id": "ctbc_c_allme",
+      "raw_card_id": "C_AllMe",
+      "page_url": "https://www.ctbcbank.com/web/content/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_AllMe.html",
+      "channels": [
+        {
+          "channel_id": "general",
+          "cashback_rate": 0.01,
+          "cashback_type": "cash",
+          "cashback_description": "國內外一般消費回饋1%，無上限",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        },
+        {
+          "channel_id": "overseas_general",
+          "cashback_rate": 0.022000000000000002,
+          "cashback_type": "cash",
+          "cashback_description": "國外實體商店消費回饋最高2.2%，無上限",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        }
+      ]
+    },
+    "ctbc_b_cashback_signature": {
+      "card_id": "ctbc_b_cashback_signature",
+      "raw_card_id": "B_Cashback_Signature",
+      "page_url": "https://www.ctbcbank.com/web/content/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/B_Cashback_Signature.html",
+      "channels": [
+        {
+          "channel_id": "general",
+          "cashback_rate": 0.005,
+          "cashback_type": "cash",
+          "cashback_description": "國內消費不分級距享0.5%回饋，回饋無上限",
+          "conditions": "",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        },
+        {
+          "channel_id": "overseas_general",
+          "cashback_rate": 0.025,
+          "cashback_type": "cash",
+          "cashback_description": "國外消費最高 2.5%（需達國內月消費門檻；未達為 1.5%）",
+          "conditions": "需每月國內消費達指定門檻，未達門檻國外消費回饋為 1.5%",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        }
+      ]
+    },
+    "ctbc_b_hae": {
+      "card_id": "ctbc_b_hae",
+      "raw_card_id": "B_HAE",
+      "page_url": "https://www.ctbcbank.com/web/content/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/B_HAE.html",
+      "channels": [
+        {
+          "channel_id": "overseas_general",
+          "cashback_rate": 0.006,
+          "cashback_type": "cash",
+          "cashback_description": "其他產業及國外消費享現金回饋 0.6%，回饋無上限",
+          "conditions": "無上限",
+          "valid_end": null,
+          "source": "card_feature_direct"
+        },
+        {
+          "channel_id": "insurance",
+          "cashback_rate": 0.0168,
+          "cashback_type": "cash",
+          "cashback_description": "保險刷卡消費享現金回饋 1.68%，回饋無上限",
+          "conditions": "無上限",
+          "valid_end": null,
+          "source": "manual_verified"
+        },
+        {
+          "channel_id": "supermarket",
+          "cashback_rate": 0.01,
+          "cashback_type": "cash",
+          "cashback_description": "量販超市、餐廳消費享現金回饋 1%，回饋無上限",
+          "conditions": "無上限",
+          "valid_end": null,
+          "source": "manual_verified"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BankCard",
+  "description": "信用卡結構化資料 Schema（中信 + 富邦）",
+  "type": "object",
+  "required": ["card_id", "card_name", "card_status", "channels"],
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^(ctbc|fubon)_[a-z0-9_]+$",
+      "description": "卡片唯一識別碼，格式：{bank}_{name}"
+    },
+    "bank_id": {
+      "type": ["string", "null"],
+      "enum": ["ctbc", "fubon", null],
+      "description": "發行銀行代碼"
+    },
+    "card_name": {
+      "type": "string",
+      "description": "卡片完整名稱"
+    },
+    "card_status": {
+      "type": "string",
+      "enum": ["active", "discontinued", "unknown"],
+      "description": "active=現行發行中, discontinued=已停發, unknown=待確認"
+    },
+    "card_org": {
+      "type": ["string", "null"],
+      "enum": ["VISA", "Mastercard", "JCB", "AE", "UnionPay", null],
+      "description": "發卡組織"
+    },
+    "annual_fee": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "年費（新台幣），0 = 免年費"
+    },
+    "annual_fee_waiver": {
+      "type": ["string", "null"],
+      "description": "免年費條件說明"
+    },
+    "card_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "中信官網卡片介紹頁 URL"
+    },
+    "apply_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "線上申辦頁面 URL"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "卡片標籤，用於快速搜尋"
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "備註說明"
+    },
+    "data_source": {
+      "type": "string",
+      "enum": ["api", "scraper", "manual", "manual_seed"],
+      "description": "資料來源"
+    },
+    "last_verified": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "最後人工驗證日期 YYYY-MM-DD"
+    },
+    "channels": {
+      "type": "array",
+      "description": "各通路的優惠設定",
+      "items": {
+        "type": "object",
+        "required": ["channel_id", "channel_name", "cashback_type", "cashback_rate"],
+        "properties": {
+          "channel_id": {
+            "type": "string",
+            "enum": [
+              "convenience_store", "supermarket", "ecommerce",
+              "food_delivery", "transport", "dining", "travel",
+              "entertainment", "gas_station", "pharmacy",
+              "mobile_payment", "general", "overseas_general",
+              "wholesale", "department_store", "insurance", "telecom"
+            ]
+          },
+          "channel_name": { "type": "string" },
+          "merchants": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "適用商家清單，空陣列 = 該類別全部適用"
+          },
+          "cashback_type": {
+            "type": "string",
+            "enum": ["cash", "points", "miles"],
+            "description": "cash=現金/現金回饋, points=紅利/點數, miles=哩程"
+          },
+          "cashback_rate": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 1,
+            "description": "回饋率，0.05 = 5%"
+          },
+          "cashback_description": {
+            "type": ["string", "null"],
+            "description": "回饋說明原文"
+          },
+          "max_cashback_per_period": {
+            "type": ["integer", "null"],
+            "minimum": 0,
+            "description": "每期回饋上限（新台幣），null = 無上限"
+          },
+          "min_spend": {
+            "type": ["integer", "null"],
+            "minimum": 0,
+            "description": "最低消費門檻（新台幣），null / 0 = 不限金額"
+          },
+          "conditions": {
+            "type": ["string", "null"],
+            "description": "完整條件說明"
+          },
+          "valid_forever": {
+            "type": "boolean",
+            "description": "true = 長期有效優惠（非限時）"
+          },
+          "valid_start": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "優惠開始日 YYYY-MM-DD"
+          },
+          "valid_end": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "優惠截止日 YYYY-MM-DD，null = 無截止"
+          },
+          "expiring_soon": {
+            "type": "boolean",
+            "description": "30 天內到期時自動標記為 true（由 data_cleaner 計算）"
+          }
+        }
+      }
+    }
+  }
+}

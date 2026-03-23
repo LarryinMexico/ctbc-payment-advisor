@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ctbc-payment-advisor"
+version = "1.0.0"
+description = "中信信用卡支付建議系統（MCP Server + Gradio Demo + CLI Agent）"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "groq>=0.11.0",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",
+    "jsonschema>=4.21.0",
+    "lxml>=5.0.0",
+    "gradio>=4.0.0",
+]
+
+[project.scripts]
+ctbc-mcp  = "mcp_server.server:main"   # MCP Server（給 Claude Desktop / Cursor 用）
+ctbc-demo = "gradio_app:main"          # Gradio 網頁 Demo
+ctbc-chat = "main:main"                # CLI 對話 Agent
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["venv*", "tests*", "*.egg-info", "data*"]
+
+[tool.setuptools]
+py-modules = ["gradio_app", "main"]
+
+[tool.setuptools.package-data]
+"mcp_server" = ["data/processed/*.json", "data/scraped/*.json"]

@@ -1,0 +1,258 @@
+[
+  {
+    "title": "【購新衣】單月滿3,000元享3%刷卡金(需登錄)",
+    "description": "【購新衣】單月滿3,000元享3%刷卡金(需登錄)",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/NB2023061218/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750972",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【耆妙屋】指定商品9折優惠",
+    "description": "【耆妙屋】指定商品9折優惠",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "https://mkt.ctbcbank.com/recent/202612/N2025121200004_02-31/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750980",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【宜得利】最高享400元刷卡金(需登錄)",
+    "description": "【宜得利】最高享400元刷卡金(需登錄)",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/N2024121600005_03/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750983",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【IKEA】最高享1,000元刷卡金(需登錄)",
+    "description": "【IKEA】最高享1,000元刷卡金(需登錄)",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/NB2023071315/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750986",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【詩肯柚木】最高享1,000元刷卡金(需登錄)",
+    "description": "【詩肯柚木】最高享1,000元刷卡金(需登錄)",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/N2025121200005_01/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750988",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【停車大聲公】首刷贈100元停車金，再享最高9%回饋",
+    "description": "【停車大聲公】首刷贈100元停車金，再享最高9%回饋",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-06-30",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/parking/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750990",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【中租租車】刷中信卡訂車，享平日7折、假日8折優惠",
+    "description": "【中租租車】刷中信卡訂車，享平日7折、假日8折優惠",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/rental/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750992",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【日本優惠】滿額最高享10%優惠!",
+    "description": "【日本優惠】滿額最高享10%優惠!",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/TravelPlayer/japan.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750994",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【王品集團全品牌餐廳】瘋Pay綁定中信卡最高8%回饋！",
+    "description": "【王品集團全品牌餐廳】瘋Pay綁定中信卡最高8%回饋！",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/wowapp/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750996",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【中信好食友】美味最優77折起！",
+    "description": "【中信好食友】美味最優77折起！",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/foodsedm/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.750998",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【誠品生活】單筆分期滿額最高贈400元",
+    "description": "【誠品生活】單筆分期滿額最高贈400元",
+    "valid_start": "2026-01-06",
+    "valid_end": "2026-03-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/eslitelife/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751000",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【代扣繳】中信卡代扣繳水電瓦斯費，送源牧鮮蛋",
+    "description": "【代扣繳】中信卡代扣繳水電瓦斯費，送源牧鮮蛋",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/withholdedm/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751002",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【代扣繳】中信卡代扣繳中華電信費用，送源牧鮮蛋",
+    "description": "【代扣繳】中信卡代扣繳中華電信費用，送源牧鮮蛋",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/chunghwa/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751004",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【繳學雜費】中信卡享6期分期0利率！",
+    "description": "【繳學雜費】中信卡享6期分期0利率！",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-06-30",
+    "offer_url": "https://mkt.ctbcbank.com/recent/202606/N2025121900001_01-30/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751006",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【藥妝採購日】屈臣氏、康是美滿額最高享200元優惠",
+    "description": "【藥妝採購日】屈臣氏、康是美滿額最高享200元優惠",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/beauty/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751009",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【連鎖眼鏡】單月單店滿3,000元享3%刷卡金(需登錄)",
+    "description": "【連鎖眼鏡】單月單店滿3,000元享3%刷卡金(需登錄)",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/N2025121200004_01/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751012",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【小林眼鏡】單月單店滿3,000元享3%刷卡金(需登錄)",
+    "description": "【小林眼鏡】單月單店滿3,000元享3%刷卡金(需登錄)",
+    "valid_start": "2026-02-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/N2025121200004_01/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751015",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【中信特攻籃球隊】網路購票刷中信卡享9折，登錄再回饋10%刷卡金",
+    "description": "【中信特攻籃球隊】網路購票刷中信卡享9折，登錄再回饋10%刷卡金",
+    "valid_start": "2026-01-08",
+    "valid_end": "2026-04-19",
+    "offer_url": "https://mkt.ctbcbank.com/long/creditcard/baseketball/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751017",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【線上購物】金馬迎暖春，最高回饋2000元！",
+    "description": "【線上購物】金馬迎暖春，最高回饋2000元！",
+    "valid_start": "2026-03-01",
+    "valid_end": "2026-03-31",
+    "offer_url": "/content/dam/minisite/long/creditcard/online-shopping/index.html",
+    "category": "cc_offer",
+    "scraped_at": "2026-03-08T15:24:57.751020",
+    "bank_id": "ctbc"
+  },
+  {
+    "title": "【富邦J卡】日韓泰消費最高6%現金回饋",
+    "description": "持富邦J卡在日本、韓國、泰國等JCB特惠地區消費，享最高6%現金回饋；每月回饋上限1,000元",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "https://www.fubon.com/finance/personal/credit_card/jcard/jcard.htm",
+    "category": "cc_offer",
+    "bank_id": "fubon",
+    "applicable_cards": [
+      "fubon_c_j",
+      "fubon_c_j_travel"
+    ],
+    "scraped_at": "2026-03-16T00:00:00"
+  },
+  {
+    "title": "【富邦Costco聯名卡】Costco網購享3%、門市享2%回饋",
+    "description": "持富邦Costco聯名卡於Costco線上購物享3%現金回饋，實體門市消費享2%現金回饋",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "https://www.fubon.com/finance/personal/credit_card/costco/costco.htm",
+    "category": "cc_offer",
+    "bank_id": "fubon",
+    "applicable_cards": [
+      "fubon_c_costco"
+    ],
+    "scraped_at": "2026-03-16T00:00:00"
+  },
+  {
+    "title": "【富邦momo卡】momo購物網最高3%現金回饋",
+    "description": "持富邦momo聯名卡於momo購物網消費享最高3%現金回饋；每月回饋上限500元",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "https://www.fubon.com/finance/personal/credit_card/momo/momo.htm",
+    "category": "cc_offer",
+    "bank_id": "fubon",
+    "applicable_cards": [
+      "fubon_c_momo"
+    ],
+    "scraped_at": "2026-03-16T00:00:00"
+  },
+  {
+    "title": "【富邦富利生活卡】8大生活通路享5倍紅利",
+    "description": "持富邦富利生活卡於超市、超商、餐廳、百貨等8大生活通路消費享5倍紅利點數，每月上限5,000點",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "https://www.fubon.com/finance/personal/credit_card/lifestyle/lifestyle.htm",
+    "category": "cc_offer",
+    "bank_id": "fubon",
+    "applicable_cards": [
+      "fubon_b_lifestyle"
+    ],
+    "scraped_at": "2026-03-16T00:00:00"
+  },
+  {
+    "title": "【台灣大哥大Open Possible聯名卡】台哥大消費享3.5%回饋",
+    "description": "持台灣大哥大Open Possible聯名卡繳納台哥大電信費及相關消費享3.5%現金回饋；每月回饋上限350元",
+    "valid_start": "2026-01-01",
+    "valid_end": "2026-12-31",
+    "offer_url": "https://www.fubon.com/finance/personal/credit_card/twm/twm.htm",
+    "category": "cc_offer",
+    "bank_id": "fubon",
+    "applicable_cards": [
+      "fubon_c_twm"
+    ],
+    "scraped_at": "2026-03-16T00:00:00"
+  }
+]

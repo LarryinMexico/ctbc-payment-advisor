@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+data/raw/*
+data/debug/*
+!data/raw/.gitkeep
+!data/debug/.gitkeep
+venv/
+.venv/

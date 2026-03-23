@@ -1,0 +1,13 @@
+# Data collection
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+rich>=13.0.0
+jsonschema>=4.21.0
+
+# MCP Server
+mcp>=1.0.0
+
+# Agent
+groq>=0.11.0
