@@ -138,3 +138,16 @@ python -m main          # CLI Agent
 - **LLM**：Groq API（`llama-3.3-70b-versatile` 主模型，`llama-3.1-8b-instant` 海外辨識）
 - **MCP 框架**：FastMCP（Python mcp SDK）
 - **前端**：Gradio 4.x
+
+---
+
+## Contributors
+
+中信銀行實習專案團隊成員：
+
+| GitHub | 角色 |
+|--------|------|
+| [@Gene-Liu-portfolio](https://github.com/Gene-Liu-portfolio) | 專案負責人 |
+| [@LarryinMexico](https://github.com/LarryinMexico) | 實習生 |
+| [@Lyyyy17](https://github.com/Lyyyy17) | 實習生 |
+| [@rockeywang404](https://github.com/rockeywang404) | 實習生 |
