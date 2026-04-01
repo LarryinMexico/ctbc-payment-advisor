@@ -22,6 +22,7 @@ Resources（2個）：
 from __future__ import annotations
 
 import json
+import os
 
 from mcp.server.fastmcp import FastMCP
 
@@ -48,6 +49,8 @@ mcp = FastMCP(
         "根據使用者持有的卡片和消費情境，提供最優的刷卡建議。"
         "所有 Tool 的 cards_owned 參數都必須填入使用者實際持有的 card_id 清單。"
     ),
+    host=os.getenv("MCP_HOST", os.getenv("HOST", "0.0.0.0")),
+    port=int(os.getenv("MCP_PORT", os.getenv("PORT", "8000"))),
 )
 
 
@@ -246,7 +249,9 @@ def reload_data() -> dict:
 
 def main():
     """套件安裝後的指令入口（ctbc-mcp）。"""
-    mcp.run()
+    transport = os.getenv("MCP_TRANSPORT", "stdio")
+    mount_path = os.getenv("MCP_MOUNT_PATH")
+    mcp.run(transport=transport, mount_path=mount_path)
 
 
 if __name__ == "__main__":

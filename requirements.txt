@@ -11,3 +11,6 @@ mcp>=1.0.0
 
 # Agent
 groq>=0.11.0
+
+# HTTP deployment
+uvicorn>=0.30.0

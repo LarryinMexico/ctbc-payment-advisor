@@ -17,10 +17,12 @@ dependencies = [
     "jsonschema>=4.21.0",
     "lxml>=5.0.0",
     "gradio>=4.0.0",
+    "uvicorn>=0.30.0",
 ]
 
 [project.scripts]
 ctbc-mcp  = "mcp_server.server:main"   # MCP Server（給 Claude Desktop / Cursor 用）
+ctbc-mcp-http = "mcp_server.http_app:main"  # HTTP MCP Server（給 Render / 遠端 Cursor 用）
 ctbc-demo = "gradio_app:main"          # Gradio 網頁 Demo
 ctbc-chat = "main:main"                # CLI 對話 Agent
 
