@@ -54,7 +54,7 @@ class MCPHttpClient:
                         await session.initialize()
                         result = await session.call_tool(tool_name, arguments)
         except Exception as exc:
-            self._trace(tool_name, arguments, "error", str(exc))
+            self._trace(tool_name, arguments, "error", self._format_exception(exc))
             raise
 
         payload = self._decode_tool_result(result)
@@ -105,3 +105,19 @@ class MCPHttpClient:
                     summary=summary,
                 )
             )
+
+    def _format_exception(self, exc: Exception) -> str:
+        if isinstance(exc, BaseExceptionGroup):
+            leaves = self._flatten_exception_group(exc)
+            if leaves:
+                return " | ".join(leaves)
+        return f"{type(exc).__name__}: {exc}"
+
+    def _flatten_exception_group(self, exc: BaseExceptionGroup) -> list[str]:
+        messages: list[str] = []
+        for sub_exc in exc.exceptions:
+            if isinstance(sub_exc, BaseExceptionGroup):
+                messages.extend(self._flatten_exception_group(sub_exc))
+            else:
+                messages.append(f"{type(sub_exc).__name__}: {sub_exc}")
+        return messages

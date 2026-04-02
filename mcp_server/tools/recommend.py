@@ -142,11 +142,14 @@ def recommend_payment(
             seen_cids.add(cid)
             parsed_channels.append({"name": ch_name, "channel_id": cid})
 
-    # 對每個解析出的通路執行 search_by_channel
+    # 對每個解析出的通路執行 search_by_channel。
+    # 若使用者提到的是明確商家（如全聯、momo），優先保留商家名稱，
+    # 避免只用 channel_id 查詢時錯借同通路其他商家的活動。
     recommendations = []
     for ch in parsed_channels:
+        search_query = ch["name"] if ch["name"] != "一般消費" else ch["channel_id"]
         result = search_by_channel(
-            channel=ch["channel_id"],
+            channel=search_query,
             cards_owned=cards_owned,
             amount=amount,
             top_k=1,
@@ -154,8 +157,9 @@ def recommend_payment(
         if result.get("results"):
             best = result["results"][0]
             recommendations.append({
-                "channel_name": _channel_display_name(ch["channel_id"], ch["name"]),
+                "channel_name": _channel_display_name(result["channel_id"], ch["name"]),
                 "channel_id":   ch["channel_id"],
+                "query":        search_query,
                 "best_card":    best,
             })
 

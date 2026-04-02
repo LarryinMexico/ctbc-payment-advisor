@@ -109,6 +109,9 @@ class PaymentAgent:
 
                 if isinstance(tool_payload, dict) and tool_payload.get("error"):
                     last_tool_error = str(tool_payload["error"])
+                    reply = f"抱歉，遠端 MCP 工具呼叫失敗：{last_tool_error}"
+                    self.history.append({"role": "assistant", "content": reply})
+                    return reply
 
                 messages.append({
                     "role":         "tool",
