@@ -118,6 +118,8 @@ def search_by_channel(
         # ── 次優先：使用卡片特色頁直接爬取的回饋率 ──
         feature_ch = get_best_feature_channel(card_id, channel_id)
         if feature_ch and feature_ch.get("cashback_rate") is not None:
+            if merchant_hint and feature_ch.get("is_fallback") and not _is_generic_general_fallback(feature_ch):
+                continue
             rate = feature_ch.get("cashback_rate")
             cap  = feature_ch.get("max_cashback_per_period")
             est  = calc_estimated_cashback(amount, rate, cap) if amount > 0 else None
@@ -140,6 +142,8 @@ def search_by_channel(
         # ── 最後 fallback：使用主資料集（API 行銷文案）──
         best_ch = get_best_channel_for_card(card, channel_id)
         if best_ch is None:
+            continue
+        if merchant_hint and best_ch.get("is_fallback") and not _is_generic_general_fallback(best_ch):
             continue
 
         rate = best_ch.get("cashback_rate")
@@ -225,6 +229,39 @@ _CHANNEL_NAMES = {
 
 def _channel_display_name(channel_id: str, fallback: str) -> str:
     return _CHANNEL_NAMES.get(channel_id, fallback)
+
+
+_GENERIC_FALLBACK_EXCLUDE_KEYWORDS = {
+    "保險", "道路救援", "旅行平安險", "旅平險", "旅遊", "海外", "高鐵", "台鐵",
+    "捷運", "機票", "航空", "飯店", "訂房", "停車", "加油", "餐廳", "餐飲",
+    "超市", "量販", "外送", "藥妝", "影城", "樂園", "行動支付",
+}
+
+_GENERIC_FALLBACK_INCLUDE_KEYWORDS = {
+    "一般消費", "國內一般消費", "國內消費", "不分通路", "不分級距",
+}
+
+
+def _is_generic_general_fallback(channel_data: dict) -> bool:
+    """
+    僅接受真正泛用的一般消費 fallback。
+    若文案含有明確品類/情境（如保險、超市、旅遊），
+    即使資料被掛在 general，也不應拿來回答明確商家查詢。
+    """
+    text = " ".join(
+        str(channel_data.get(key) or "")
+        for key in ("cashback_description", "conditions", "channel_name")
+    )
+    if not text:
+        return False
+
+    if any(keyword in text for keyword in _GENERIC_FALLBACK_EXCLUDE_KEYWORDS):
+        return False
+
+    if any(keyword in text for keyword in _GENERIC_FALLBACK_INCLUDE_KEYWORDS):
+        return True
+
+    return False
 
 
 def _error(msg: str) -> dict:

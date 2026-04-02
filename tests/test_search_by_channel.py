@@ -37,6 +37,24 @@ class SearchByChannelTests(unittest.TestCase):
         self.assertEqual(linepay["data_source"], "microsite")
         self.assertIn("家樂福", linepay.get("merchant") or "")
 
+    def test_named_merchant_does_not_use_non_generic_general_fallback(self):
+        result = search_by_channel(
+            channel="momo購物",
+            cards_owned=[
+                "ctbc_c_uniopen",
+                "ctbc_c_linepay",
+                "ctbc_c_fp",
+                "ctbc_b_cashback_signature",
+                "ctbc_b_hae",
+                "fubon_b_lifestyle",
+            ],
+            amount=2000,
+            top_k=5,
+        )
+
+        self.assertNotEqual(result["results"][0]["card_id"], "ctbc_b_hae")
+        self.assertNotIn("保險", result["results"][0].get("cashback_description") or "")
+
 
 if __name__ == "__main__":
     unittest.main()
