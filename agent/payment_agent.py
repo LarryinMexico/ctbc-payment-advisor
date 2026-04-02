@@ -113,6 +113,12 @@ class PaymentAgent:
                     self.history.append({"role": "assistant", "content": reply})
                     return reply
 
+                if fn_name == "recommend_payment":
+                    formatted_reply = self._format_recommend_payment_reply(tool_payload)
+                    if formatted_reply:
+                        self.history.append({"role": "assistant", "content": formatted_reply})
+                        return formatted_reply
+
                 messages.append({
                     "role":         "tool",
                     "tool_call_id": tool_call.id,
@@ -141,3 +147,31 @@ class PaymentAgent:
             print(f"[MCP] success {event.tool_name} summary={event.summary}")
         else:
             print(f"[MCP] error {event.tool_name} summary={event.summary}")
+
+    def _format_recommend_payment_reply(self, payload: dict) -> str | None:
+        recommendations = payload.get("recommendations")
+        if not isinstance(recommendations, list) or not recommendations:
+            return None
+
+        if len(recommendations) == 1:
+            return None
+
+        lines = ["根據您的消費情境，分別建議如下："]
+        for item in recommendations:
+            best_card = item.get("best_card") or {}
+            channel_query = item.get("query") or item.get("channel_name") or "此通路"
+            card_name = best_card.get("card_name") or "未找到合適卡片"
+            rate = best_card.get("cashback_rate")
+            estimated = best_card.get("estimated_cashback")
+            conditions = best_card.get("conditions") or "無特別限制"
+
+            detail_parts = [f"{channel_query}：推薦使用 {card_name}"]
+            if rate is not None:
+                detail_parts.append(f"回饋率約 {rate * 100:g}%")
+            if estimated is not None:
+                detail_parts.append(f"預估回饋 {estimated:g} 元")
+            detail_parts.append(f"注意事項：{conditions}")
+
+            lines.append("，".join(detail_parts) + "。")
+
+        return "\n".join(lines)
