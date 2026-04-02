@@ -32,6 +32,9 @@ python3 -m pip install -e .
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 GROQ_MODEL=llama-3.3-70b-versatile
+MCP_SERVER_URL=https://your-service-name.onrender.com/mcp
+MCP_AUTH_TOKEN=your_remote_mcp_token_here
+DEBUG_MCP=true
 ```
 
 `.env.example` 僅作為範本，不要填入真實金鑰。
@@ -62,6 +65,13 @@ ctbc-chat
 
 ```bash
 python3 main.py
+```
+
+若 `DEBUG_MCP=true`，CLI 會直接顯示遠端 MCP 調用過程，例如：
+
+```text
+[MCP] calling search_by_channel args={"channel":"全聯","amount":2000,"cards_owned":["..."]}
+[MCP] success search_by_channel summary=2 results, best=富邦富利生活卡
 ```
 
 ### 3. MCP Server

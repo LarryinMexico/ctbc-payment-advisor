@@ -87,7 +87,12 @@ def search_by_channel(
         card_id = card["card_id"]
 
         # ── 優先使用微型網站精確促銷資料 ──
-        microsite_deal = get_best_microsite_deal(card_id, channel_id, merchant_hint=merchant_hint)
+        microsite_deal = get_best_microsite_deal(
+            card_id,
+            channel_id,
+            merchant_hint=merchant_hint,
+            strict_merchant=bool(merchant_hint),
+        )
         if microsite_deal:
             rate = microsite_deal.get("cashback_rate")
             cap  = None

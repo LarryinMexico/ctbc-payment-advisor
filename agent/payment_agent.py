@@ -27,6 +27,7 @@ load_dotenv()
 # ── 模型設定 ──────────────────────────────────────────────────────────────────
 DEFAULT_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 MAX_TOOL_ROUNDS = 5  # 防止無限 tool-call loop
+DEBUG_MCP = os.getenv("DEBUG_MCP", "true").lower() == "true"
 
 
 class PaymentAgent:
@@ -65,6 +66,7 @@ class PaymentAgent:
         messages = [
             {"role": "system", "content": self._system_prompt},
         ] + self.history
+        last_tool_error: str | None = None
 
         # Tool-calling loop
         for _ in range(MAX_TOOL_ROUNDS):
@@ -98,7 +100,15 @@ class PaymentAgent:
                     tool_name=fn_name,
                     arguments=fn_args,
                     cards_owned=self.cards_owned,
+                    trace_logger=self._trace_mcp if DEBUG_MCP else None,
                 )
+                try:
+                    tool_payload = json.loads(tool_result)
+                except json.JSONDecodeError:
+                    tool_payload = {"error": "工具回傳內容無法解析"}
+
+                if isinstance(tool_payload, dict) and tool_payload.get("error"):
+                    last_tool_error = str(tool_payload["error"])
 
                 messages.append({
                     "role":         "tool",
@@ -107,7 +117,9 @@ class PaymentAgent:
                 })
 
         # 超過 tool round 限制（理論上不應發生）
-        return "抱歉，處理您的請求時發生內部錯誤，請重試。"
+        if last_tool_error:
+            return f"抱歉，遠端 MCP 工具呼叫失敗：{last_tool_error}"
+        return "抱歉，工具調用次數過多，請重試或換一種問法。"
 
     def reset_history(self):
         """清空對話記憶，開始新對話。"""
@@ -117,3 +129,12 @@ class PaymentAgent:
         """回傳對話輪次摘要（用於 debug）。"""
         turns = sum(1 for m in self.history if m["role"] == "user")
         return f"對話記憶：{turns} 輪 / {len(self.history)} 則訊息"
+
+    def _trace_mcp(self, event):
+        """預設在 CLI 中顯示 MCP 調用過程。"""
+        if event.status == "calling":
+            print(f"[MCP] calling {event.tool_name} args={json.dumps(event.arguments, ensure_ascii=False)}")
+        elif event.status == "success":
+            print(f"[MCP] success {event.tool_name} summary={event.summary}")
+        else:
+            print(f"[MCP] error {event.tool_name} summary={event.summary}")

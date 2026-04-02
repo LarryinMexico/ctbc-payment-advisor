@@ -211,11 +211,18 @@ def get_microsite_deals(card_id: str, channel_id: str) -> list[dict]:
     return result
 
 
-def get_best_microsite_deal(card_id: str, channel_id: str, merchant_hint: Optional[str] = None) -> Optional[dict]:
+def get_best_microsite_deal(
+    card_id: str,
+    channel_id: str,
+    merchant_hint: Optional[str] = None,
+    strict_merchant: bool = False,
+) -> Optional[dict]:
     """
     取出微型網站資料中，指定卡片 × 通路回饋率最高的促銷。
     merchant_hint：若提供具體商家名稱（如 "蝦皮"），優先搜尋該商家的 deal；
-                  找不到時退回通路最高值。沒有資料時回傳 None。
+                  找不到時可依 strict_merchant 決定是否退回通路最高值。
+    strict_merchant：為 True 時，merchant_hint 找不到精確商家優惠就直接回傳 None，
+                    避免把同通路其他商家的優惠錯套到使用者指定商家。
     """
     deals = get_microsite_deals(card_id, channel_id)
     if not deals:
@@ -232,6 +239,8 @@ def get_best_microsite_deal(card_id: str, channel_id: str, merchant_hint: Option
             with_rate = [d for d in merchant_deals if d.get("cashback_rate") is not None]
             pool = with_rate if with_rate else merchant_deals
             return max(pool, key=lambda d: d.get("cashback_rate") or 0.0)
+        if strict_merchant:
+            return None
 
     # fallback：通路最高值
     with_rate = [d for d in deals if d.get("cashback_rate") is not None]
