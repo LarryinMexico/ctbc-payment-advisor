@@ -22,9 +22,9 @@ from groq import Groq
 
 load_dotenv()
 
-from mcp_server.utils.data_loader import get_cards_menu
-from mcp_server.tools.search import search_by_channel, _resolve_channel, _channel_display_name
+from mcp_server.tools.search import _resolve_channel, _channel_display_name
 from mcp_server.tools.recommend import _extract_channels
+from agent.mcp_bridge import _call_tool, _get_cards_menu_remote
 
 # ── Groq 客戶端（海外辨識用） ─────────────────────────────────────────────────
 
@@ -84,7 +84,7 @@ def _detect_overseas(scenario: str) -> tuple[bool, str]:
 
 # ── 卡片清單（啟動時載入一次）────────────────────────────────────────────────
 
-_cards = get_cards_menu()
+_cards = _get_cards_menu_remote()
 CARD_CHOICES = [(c["card_name"], c["card_id"]) for c in _cards]
 
 # ── 偏好回饋種類選項 ──────────────────────────────────────────────────────────
@@ -350,12 +350,12 @@ def recommend(
     # ── Step 3+：各通路查詢 ───────────────────────────────────────────
     parts: list[str] = []
     for ch_display, ch_id in parsed:
-        result = search_by_channel(
-            channel=ch_id,
-            cards_owned=selected_ids,
-            amount=amount,
-            top_k=len(selected_ids),
-        )
+        result = _call_tool("search_by_channel", {
+            "channel": ch_id,
+            "cards_owned": selected_ids,
+            "amount": amount,
+            "top_k": len(selected_ids),
+        })
         results = result.get("results", [])
         merchant_hint = result.get("merchant_hint", "")
 

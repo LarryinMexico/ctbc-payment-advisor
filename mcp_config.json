@@ -1,12 +1,3 @@
 {
-  "mcpServers": {
-    "ctbc-payment-advisor": {
-      "command": "python",
-      "args": ["-m", "mcp_server.server"],
-      "cwd": "/Users/liumeow/Desktop/CTBC_Internship/ctbc-payment-advisor",
-      "env": {
-        "PYTHONPATH": "/Users/liumeow/Desktop/CTBC_Internship/ctbc-payment-advisor"
-      }
-    }
-  }
+  "mcpServers": {}
 }

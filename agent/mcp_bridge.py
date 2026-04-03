@@ -5,19 +5,110 @@ MCP Tools 與 Groq Function Calling 的橋接層。
 
 功能：
 1. 定義 Groq 相容的 Tool Schema（不含 cards_owned，由 Agent 自動注入）
-2. 提供 execute_tool() 函式，依工具名稱呼叫對應的 MCP 工具函式
+2. 提供 execute_tool() 函式，透過 HTTP 呼叫遠端 MCP Server
 """
 
 from __future__ import annotations
 
 import json
+import os
 from typing import Any
 
-from mcp_server.tools.compare import compare_cards
-from mcp_server.tools.promotions import get_card_details, get_promotions
-from mcp_server.tools.recommend import recommend_payment
-from mcp_server.tools.search import search_by_channel
-from mcp_server.utils.data_loader import get_cards_menu
+import requests
+
+MCP_SERVER_URL = os.environ.get(
+    "MCP_SERVER_URL",
+    "https://ctbc-payment-advisor.onrender.com/mcp",
+)
+
+_session_id: str | None = None
+
+
+def _get_session_id() -> str:
+    """初始化 MCP session，回傳 session ID（同一 process 內只初始化一次）。"""
+    global _session_id
+    if _session_id:
+        return _session_id
+
+    resp = requests.post(
+        MCP_SERVER_URL,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json, text/event-stream",
+        },
+        json={
+            "jsonrpc": "2.0",
+            "method": "initialize",
+            "params": {
+                "protocolVersion": "2024-11-05",
+                "capabilities": {},
+                "clientInfo": {"name": "ctbc-agent", "version": "1.0"},
+            },
+            "id": 1,
+        },
+        timeout=30,
+    )
+    resp.raise_for_status()
+    _session_id = resp.headers.get("mcp-session-id")
+    if not _session_id:
+        raise RuntimeError("MCP server 未回傳 session ID，請確認 server 是否正常運作")
+    return _session_id
+
+
+def _call_tool(tool_name: str, arguments: dict) -> dict:
+    """透過 HTTP 呼叫遠端 MCP tool，回傳 result dict。"""
+    session_id = _get_session_id()
+    resp = requests.post(
+        MCP_SERVER_URL,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json, text/event-stream",
+            "mcp-session-id": session_id,
+        },
+        json={
+            "jsonrpc": "2.0",
+            "method": "tools/call",
+            "params": {"name": tool_name, "arguments": arguments},
+            "id": 2,
+        },
+        timeout=30,
+    )
+    resp.raise_for_status()
+
+    # Streamable HTTP 回傳 SSE 格式，正確處理跨行 data: 欄位
+    # 強制 UTF-8 解碼（避免 requests 自動用 ISO-8859-1 導致中文 byte 觸發 splitlines 斷行）
+    # SSE 規範：同一 event 的多行 data: 需要先 join 再解析
+    body = resp.content.decode("utf-8")
+    events: list[str] = []
+    current_data_lines: list[str] = []
+    for line in body.split("\n"):
+        if line.startswith("data:"):
+            current_data_lines.append(line[len("data:"):].lstrip())
+        elif line.strip() == "" and current_data_lines:
+            events.append("\n".join(current_data_lines))
+            current_data_lines = []
+    if current_data_lines:
+        events.append("\n".join(current_data_lines))
+
+    for event_data in events:
+        try:
+            payload = json.loads(event_data)
+        except json.JSONDecodeError:
+            continue
+        if "error" in payload:
+            return {"error": payload["error"].get("message", "未知錯誤")}
+        content = payload.get("result", {}).get("content", [])
+        if content and content[0].get("type") == "text":
+            return json.loads(content[0]["text"])
+        return payload.get("result", {})
+
+    return {"error": "MCP server 回傳格式無法解析"}
+
+
+def _get_cards_menu_remote() -> list[dict]:
+    """從遠端取得卡片選單。"""
+    result = _call_tool("list_all_cards", {})
+    return result.get("cards", [])
 
 
 # ── Groq Tool Definitions（不含 cards_owned，由 Agent 注入）──────────────────
@@ -152,6 +243,7 @@ def execute_tool(
 ) -> str:
     """
     執行指定的 MCP 工具，自動注入 cards_owned 後回傳 JSON 字串。
+    透過 HTTP 呼叫遠端 MCP Server。
 
     Args:
         tool_name:   工具名稱
@@ -162,40 +254,10 @@ def execute_tool(
         工具執行結果的 JSON 字串
     """
     args = dict(arguments)
-
-    # cards_owned 自動注入（不讓 LLM 控制）
-    args["cards_owned"] = cards_owned
+    args["cards_owned"] = cards_owned  # 自動注入，不讓 LLM 控制
 
     try:
-        if tool_name == "search_by_channel":
-            result = search_by_channel(
-                channel=args.get("channel", ""),
-                cards_owned=args["cards_owned"],
-                amount=float(args.get("amount", 0)),
-                top_k=int(args.get("top_k", 3)),
-            )
-        elif tool_name == "recommend_payment":
-            result = recommend_payment(
-                scenario=args.get("scenario", ""),
-                cards_owned=args["cards_owned"],
-            )
-        elif tool_name == "compare_cards":
-            result = compare_cards(
-                cards_owned=args["cards_owned"],
-                channel=args.get("channel", ""),
-                amount=float(args.get("amount", 1000)),
-            )
-        elif tool_name == "get_promotions":
-            result = get_promotions(
-                cards_owned=args["cards_owned"],
-                category=args.get("category", ""),
-                valid_only=bool(args.get("valid_only", True)),
-            )
-        elif tool_name == "get_card_details":
-            result = get_card_details(card_id=args.get("card_id", ""))
-        else:
-            result = {"error": f"未知工具：{tool_name}"}
-
+        result = _call_tool(tool_name, args)
     except Exception as e:
         result = {"error": f"工具執行失敗：{e}"}
 
@@ -204,9 +266,9 @@ def execute_tool(
 
 def get_all_card_ids() -> list[str]:
     """取得所有卡片的 card_id 清單（供選單使用）。"""
-    return [c["card_id"] for c in get_cards_menu()]
+    return [c["card_id"] for c in _get_cards_menu_remote()]
 
 
 def get_all_cards_for_menu() -> list[dict]:
     """取得供選單顯示的卡片清單。"""
-    return get_cards_menu()
+    return _get_cards_menu_remote()
