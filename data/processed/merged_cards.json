@@ -1,12 +1,12 @@
 {
   "version": "2.0",
   "description": "合併自 ctbc_cards + fubon_cards + card_features + microsite_deals",
-  "last_updated": "2026-04-22",
+  "last_updated": "2026-04-27",
   "merge_sources": {
-    "ctbc_cards": "/Users/liumeow/Documents/CTBC_Internship/ctbc-payment-advisor/data/processed/ctbc_cards.json",
-    "fubon_cards": "/Users/liumeow/Documents/CTBC_Internship/ctbc-payment-advisor/data/processed/fubon_cards.json",
-    "card_features": "/Users/liumeow/Documents/CTBC_Internship/ctbc-payment-advisor/data/scraped/card_features.json",
-    "microsite_deals": "/Users/liumeow/Documents/CTBC_Internship/ctbc-payment-advisor/data/scraped/microsite_deals.json"
+    "ctbc_cards": "/Users/weichengchen/ctbc-payment-advisor/ctbc-payment-advisor/data/processed/ctbc_cards.json",
+    "fubon_cards": "/Users/weichengchen/ctbc-payment-advisor/ctbc-payment-advisor/data/processed/fubon_cards.json",
+    "card_features": "/Users/weichengchen/ctbc-payment-advisor/ctbc-payment-advisor/data/scraped/card_features.json",
+    "microsite_deals": "/Users/weichengchen/ctbc-payment-advisor/ctbc-payment-advisor/data/scraped/microsite_deals.json"
   },
   "cards": [
     {
@@ -81,7 +81,7 @@
           "cashback_rate": 0.03,
           "cashback_type": "cash",
           "cashback_description": "最高3%回饋",
-          "conditions": "",
+          "conditions": "⚠️ 最高 3% 僅限漢神洲際館內消費（1% 基本回饋 + 2% 館內加碼），館外一般消費不適用加碼，且加碼回饋設有每月上限。",
           "valid_end": null,
           "data_source": "card_feature_direct"
         },
@@ -90,7 +90,7 @@
           "cashback_rate": 0.03,
           "cashback_type": "points",
           "cashback_description": "※漢神洲際館內消費最高3%含館內一般消費1%基本回饋(無上限)+2%加碼回饋(極緻卡每月上限7,500點，晶緻卡每月上限2,500點)。",
-          "conditions": "",
+          "conditions": "⚠️ 最高 3% 僅限漢神洲際館內消費（1% 基本回饋 + 2% 館內加碼），館外一般消費不適用加碼，且加碼回饋設有每月上限。",
           "valid_end": null,
           "data_source": "card_feature_direct"
         }
@@ -122,7 +122,7 @@
           "cashback_rate": 0.11,
           "cashback_type": "cash",
           "cashback_description": "免領券，消費天天最高雙11% OPENPOINT",
-          "conditions": "",
+          "conditions": "⚠️ 最高 11% 需同時達成：①基本消費 1% + ②綁定 icash Pay 加碼 4% + ③指定統一集團多品牌消費加碼回饋，一般刷卡消費僅有基本回饋約 1–3%。",
           "valid_end": null,
           "data_source": "card_feature_direct"
         },
@@ -195,7 +195,7 @@
           "cashback_rate": 0.2,
           "cashback_type": "cash",
           "cashback_description": "店內餐飲最高20%",
-          "conditions": "",
+          "conditions": "⚠️ 最高 20% 僅限遠東 SOGO 館內指定餐飲消費，一般餐廳或館外消費不適用。",
           "valid_end": null,
           "data_source": "card_feature_direct"
         },
@@ -204,7 +204,7 @@
           "cashback_rate": 0.1,
           "cashback_type": "cash",
           "cashback_description": "遠東SOGO聯名卡之悠遊卡當月使用自動加值滿NT500元享10% SOGO金回饋，每月享最高回饋50元。",
-          "conditions": "",
+          "conditions": "⚠️ 最高 10% 需以悠遊卡功能自動加值且單次消費滿 NT$500，且每月最高回饋上限 50 元（以 SOGO 金點數回饋）。",
           "valid_end": null,
           "data_source": "card_feature_direct"
         },
@@ -270,7 +270,7 @@
           "cashback_rate": 0.16,
           "cashback_type": "cash",
           "cashback_description": "最高享16%回饋 天天回饋無上限",
-          "conditions": "",
+          "conditions": "⚠️ 最高 16% 為特定通路（如指定電商、外送平台）的回饋上限，非所有通路皆適用此比率，實際回饋依消費通路而異，請確認通路專屬回饋。",
           "valid_end": null,
           "data_source": "card_feature_direct"
         },

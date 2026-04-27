@@ -205,10 +205,16 @@ def get_best_deal_for_card(
             with_rate = [d for d in merchant_deals if d.get("cashback_rate") is not None]
             pool = with_rate if with_rate else merchant_deals
             return max(pool, key=lambda d: d.get("cashback_rate") or 0.0)
+        else:
+            # strict_merchant：使用者明確找某商家，但找不到對應 deal -> 直接放棄
+            # 讓上層 search 退回一般頻道回饋，不要拿同通路的其他商家來湊數
+            return None
 
-    # fallback：通路最高值
+    # fallback：通路最高值（確保沒有 merchant_hint）
     with_rate = [d for d in deals if d.get("cashback_rate") is not None]
     pool = with_rate if with_rate else deals
+    if not pool:
+        return None
     return max(pool, key=lambda d: d.get("cashback_rate") or 0.0)
 
 

@@ -146,17 +146,16 @@ def recommend_payment(
     recommendations = []
     for ch in parsed_channels:
         result = search_by_channel(
-            channel=ch["channel_id"],
+            channel=ch["name"],   # 保留商家名稱（如「全聯」）讓 merchant_hint 機制生效
             cards_owned=cards_owned,
             amount=amount,
-            top_k=1,
+            top_k=3,
         )
         if result.get("results"):
-            best = result["results"][0]
             recommendations.append({
                 "channel_name": _channel_display_name(ch["channel_id"], ch["name"]),
                 "channel_id":   ch["channel_id"],
-                "best_card":    best,
+                "best_options": result["results"], # 改成陣列，包含至多 3 筆推薦
             })
 
     return {

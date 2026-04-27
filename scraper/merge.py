@@ -22,6 +22,45 @@ DATA_SCRAPED = BASE_DIR / "data" / "scraped"
 OUTPUT_PATH = DATA_PROCESSED / "merged_cards.json"
 
 
+# ── 特定通路「最高回饋」條件補充 ─────────────────────────────────────────────
+# 針對描述含「最高」但 conditions 欄位為空的通路，補充必要的達成條件說明。
+# 以 (card_id, channel_id) 為 key，避免錯誤套用到其他卡片。
+# 每次重新 merge 時自動生效，不會被 scraper 覆蓋。
+_CONDITION_WARNINGS: dict[tuple[str, str], str] = {
+    ("ctbc_c_uniopen", "general"): (
+        "⚠️ 最高 11% 需同時達成：①基本消費 1% + ②綁定 icash Pay 加碼 4% + "
+        "③指定統一集團多品牌消費加碼回饋，一般刷卡消費僅有基本回饋約 1–3%。"
+    ),
+    ("ctbc_c_linepay", "general"): (
+        "⚠️ 最高 16% 為特定通路（如指定電商、外送平台）的回饋上限，"
+        "非所有通路皆適用此比率，實際回饋依消費通路而異，請確認通路專屬回饋。"
+    ),
+    ("ctbc_c_cs", "dining"): (
+        "⚠️ 最高 20% 僅限遠東 SOGO 館內指定餐飲消費，一般餐廳或館外消費不適用。"
+    ),
+    ("ctbc_c_cs", "mobile_payment"): (
+        "⚠️ 最高 10% 需以悠遊卡功能自動加值且單次消費滿 NT$500，"
+        "且每月最高回饋上限 50 元（以 SOGO 金點數回饋）。"
+    ),
+    ("ctbc_c_hanshin", "general"): (
+        "⚠️ 最高 3% 僅限漢神洲際館內消費（1% 基本回饋 + 2% 館內加碼），"
+        "館外一般消費不適用加碼，且加碼回饋設有每月上限。"
+    ),
+}
+
+
+def _apply_condition_warnings(card_id: str, channels: list[dict]) -> list[dict]:
+    """
+    對特定卡片 × 通路組合補充「最高回饋的達成條件」說明。
+    僅在 conditions 欄位為空時補入，不覆蓋原有說明。
+    """
+    for ch in channels:
+        key = (card_id, ch.get("channel_id", ""))
+        if key in _CONDITION_WARNINGS and not (ch.get("conditions") or "").strip():
+            ch["conditions"] = _CONDITION_WARNINGS[key]
+    return channels
+
+
 def _load_json(path: Path) -> dict:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
@@ -125,6 +164,9 @@ def merge() -> dict:
                 {**ch, "data_source": ch.get("data_source", "api")}
                 for ch in card.get("channels", [])
             ])
+
+        # 補充「最高回饋」達成條件說明（避免 Agent 誤以為無條件適用）
+        merged["channels"] = _apply_condition_warnings(card_id, merged["channels"])
 
         # 附加 microsite deals（Method B：獨立 deals 陣列）
         microsite_entry = microsite_cards.get(card_id, {})
